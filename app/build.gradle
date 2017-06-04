@@ -9,12 +9,42 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [APP_ICON: "@mipmap/ic_launcher",
+                                APP_NAME: "这是默认的配置"]
     }
+
+    productFlavors {
+        //变种1
+        flavorsdemo1 {
+            applicationId "com.aohanyao.product.flavorsdemos.demo1"//修改了包名
+            minSdkVersion 18
+            targetSdkVersion 25
+            versionCode 1
+            versionName "1.0"
+            manifestPlaceholders = [APP_ICON: "@mipmap/ic_launcher1",
+                                    APP_NAME: "变种1"]
+        }
+        //变种2
+        flavorsdemo2 {
+            applicationId "com.aohanyao.product.flavorsdemos.demo2"//修改了包名
+            minSdkVersion 18
+            targetSdkVersion 25
+            versionCode 1
+            versionName "1.0"
+            manifestPlaceholders = [APP_ICON: "@mipmap/ic_launcher2",
+                                    APP_NAME: "变种2"]
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
         }
     }
 }
