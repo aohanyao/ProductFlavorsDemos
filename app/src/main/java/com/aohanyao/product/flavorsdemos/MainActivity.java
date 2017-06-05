@@ -9,6 +9,7 @@ import com.aohanyao.product.flavorsdemos.global.Constant;
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvApi;
+    private TextView tvVariant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,5 +17,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tvApi = (TextView) findViewById(R.id.tv_api);
         tvApi.setText(Constant.API_ADDRESS);
+
+
+        tvVariant = (TextView) findViewById(R.id.tv_variant);
+        tvVariant.setText(R.string.variant_name);
+
+
     }
 }
