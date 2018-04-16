@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.aohanyao.product.flavorsdemos"
         minSdkVersion 18
@@ -12,7 +12,7 @@ android {
         manifestPlaceholders = [APP_ICON: "@mipmap/ic_launcher",
                                 APP_NAME: "这是默认的配置"]
     }
-
+    flavorDimensions "default"//gradle 3.0.1
     productFlavors {
         //变种1
         flavorsdemo1 {
