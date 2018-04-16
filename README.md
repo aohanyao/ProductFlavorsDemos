@@ -36,29 +36,29 @@
 
 	${APP_ICON}	占位启动图标
 	${APP_NAME}	占位app名称
-	
+
 同理，其他第三方需要的相关配置也是可以使用占位符，例如极光相关和友盟相关
-	
+
 		<permission
         android:name="${JPUSH_MESSAGE_VALUE}"
         android:protectionLevel="signature" />
-        
+
          <meta-data
             android:name="UMENG_APPKEY"
             android:value="${UMENG_APPKEY}" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL}" />
-            
-            
-            
-            
+
+
+
+
  以上的占位符，都可以在gradle中使用其它值来替换。
- 
+
  ![清单文件配置](http://obh9jd33g.bkt.clouddn.com/%E6%B8%85%E5%8D%95%E6%96%87%E4%BB%B61.png)
- 
- 
- 
+
+
+
 #### 在Gradle中对占位符等进行配置
 1. 对defaultConfig节点做一些修改，增加manifestPlaceholders字段，来替换manifest中的占位符。为了快速演示，所以就没配置极光和友盟了，都是一样的。
 
@@ -72,16 +72,17 @@
 	        manifestPlaceholders = [APP_ICON: "@mipmap/ic_launcher",
 	                                APP_NAME: "这是默认的配置"]
 	    }
-	    
+
 	上面的配置将图标改为了ic_launcher，app的名称改为了这是默认的配置，为了保险起见，先直接运行APP，看看有没有更改成功。
-	
+
 	![构建默认的配置](http://obh9jd33g.bkt.clouddn.com/%E6%9E%84%E5%BB%BA%E5%8F%98%E7%A7%8D-1.png)
-	
+
 	从上图可以看到，已经直接运行安装成功了，可以证明我们替换占位符是正确的。
-	
+
 2.变种的配置，ProductFlavors配置
 在android节点中配置productFlavors节点，将defaultConfig节点复制一份过来，修改一下需要修改的地方，具体如下配置:
 
+	flavorDimensions "default"
 	productFlavors {
         //变种1
         flavorsdemo1 {
@@ -104,34 +105,34 @@
                                     APP_NAME: "变种2"]
         }
     }
-    
+
   为了方便区分，我增加了ic_launcher1和ic_launcher2两个图标。
-  
+
   详细配置截图:
-  
-  ![构建变种配置](http://obh9jd33g.bkt.clouddn.com/%E6%9E%84%E5%BB%BA%E5%8F%98%E7%A7%8D-2.png)
-  
+
+  ![构建变种](http://obh9jd33g.bkt.clouddn.com/小书匠/1523873942783.jpg)
+
   在上面的配置中，分别修改了APP的包名，名称以及图标。接下来就是验证是否成功了。只要这这两个都能安装上就算是成功(同样的包名是不能安装在同一台手机上的，当然有种黑科技不算)。配置完成后同步一下。
-  
+
  3.选择构建变体
- 
+
  	菜单->Build->Select Build Variant
  这时候左下会出现一个窗口，如果Select Build Variant无法选中的话，请先选择app目录。
- 
+
  ![Select Build Variant](http://obh9jd33g.bkt.clouddn.com/%E6%9E%84%E5%BB%BA%E5%8F%98%E7%A7%8D-3.png)
- 
+
  可以看到，在gradle中配置的flavorsdemo1和flavorsdemo2都出现在了了选项中，一个是debug版本，一个是release版本，不用管它，直接选择debug版本就好，选择完成后会重新创建，这里先选择flavorsdemo1Debug，等待build完成后直接运行。安装完成后再选择flavorsdemo2Debug版本，等待build，安装。见证奇迹的时候到了：
- 
+
  ![构建变种成功安装](http://obh9jd33g.bkt.clouddn.com/%E6%9E%84%E5%BB%BA%E5%8F%98%E7%A7%8D-4.png)
- 
+
  可以看到，变种1和变种2都安装成功了，而且图标都不一样。这时候可能会有人问：包名呢？来来，使用ADM来看看正在运行中的程序：
- 
+
  ![查看两个变种的包名](http://obh9jd33g.bkt.clouddn.com/%E6%9E%84%E5%BB%BA%E5%8F%98%E7%A7%8D-5.png)
- 
+
  看，demo1和demo2都在，而且和我们配置的一毛一样呀，看到这里，有没有朋友想到更广泛的用途呢？
- 
+
  到这里，构建变种的基础就算完成，接下来就是配置不同的源码和资源文件。
- 
+
 
 ### 2.源码配置
 #### 业务场景
@@ -146,7 +147,7 @@
 ![构建变种，创建源码目录](http://obh9jd33g.bkt.clouddn.com/%E6%9E%84%E5%BB%BA%E5%8F%98%E7%A7%8D-6.png)
 
 2. 创建包
-	
+
 首先在flavorsdemo1和flavorsdemo2下创建java和res文件夹，让后再java目录下创建包，这里创建的包要和main下面的一样，而且flavorsdemo1和flavorsdemo2的目录也必须一致，还有变种中存在的类，main中是不允许存在的。
 
 先看图，再解释：
@@ -185,7 +186,7 @@ flavorsdemo2 Constant
 	    android:layout_height="match_parent"
 	    android:orientation="vertical"
 	    tools:context="com.aohanyao.product.flavorsdemos.MainActivity">
-	
+
 	    <TextView
 	        android:id="@+id/tv_api"
 	        android:layout_width="wrap_content"
@@ -195,14 +196,14 @@ flavorsdemo2 Constant
 	        app:layout_constraintLeft_toLeftOf="parent"
 	        app:layout_constraintRight_toRightOf="parent"
 	        app:layout_constraintTop_toTopOf="parent" />
-	
+
 	</LinearLayout>
 
-``` 
+```
 
 MainActivity
 
-```java	
+```java
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvApi;
@@ -257,10 +258,5 @@ public class MainActivity extends AppCompatActivity {
 
 ### 最后
 
-如果文中有什么不对的地方，欢迎指出！
 
-[源码地址](https://github.com/aohanyao/ProductFlavorsDemos) 欢迎star
-
-我的[简书](http://www.jianshu.com/u/3e53005808b1)
-
-
+[源码地址](https://github.com/aohanyao/ProductFlavorsDemos)
